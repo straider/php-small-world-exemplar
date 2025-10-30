@@ -1,0 +1,2 @@
+# Environment Variables, probably with confidential/sensitive data, such as credentials or passwords
+.env
