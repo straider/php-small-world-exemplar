@@ -14,7 +14,7 @@ services:
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
       MYSQL_USER: appuser
-      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     build: .
 
   db:
@@ -23,9 +23,8 @@ services:
     environment:
       MYSQL_DATABASE: demo
       MYSQL_USER: appuser
-      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -44,7 +43,7 @@ services:
     environment:
       PMA_HOST: db
       PMA_USER: root
-      PMA_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     depends_on:
       db:
         condition: service_healthy
