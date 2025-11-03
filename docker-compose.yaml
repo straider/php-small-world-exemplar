@@ -9,7 +9,8 @@ services:
     volumes:
       - ./src/php:/var/www/html # Mount your PHP code
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
@@ -27,6 +28,11 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -38,7 +44,8 @@ services:
       PMA_USER: appuser
       PMA_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
 volumes:
   db_data:
