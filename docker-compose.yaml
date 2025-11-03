@@ -13,6 +13,7 @@ services:
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+    build: .
 
   db:
     image: mysql:8.1.0          # Smallest image
