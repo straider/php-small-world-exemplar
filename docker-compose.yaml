@@ -5,7 +5,7 @@ services:
     image: php:8.2-apache
     container_name: php-app
     volumes:
-      - ./src:/var/www/html   # Mount your PHP code
+      - ./src/php:/var/www/html   # Mount your PHP code
     ports:
       - "8080:80"             # Host port : Container port
     depends_on:
