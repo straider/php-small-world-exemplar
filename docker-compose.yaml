@@ -1,9 +1,11 @@
 version: "3.9"
 
 services:
-  app:
+  php:
     image: php:8.2-apache
-    container_name: php-app
+    container_name: php-server
+    ports:
+      - "8080:80"               # Host port : Container port
     volumes:
       - ./src/php:/var/www/html   # Mount your PHP code
     ports:
@@ -11,15 +13,15 @@ services:
     depends_on:
       - db
     environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html
+      APACHE_DOCUMENT_ROOT: /var/www/html
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
 
   db:
-    image: mysql:8.0
-    container_name: mysql-db
-    restart: always
+    image: mysql:8.1.0          # Smallest image
+    container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: appdb
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: demo
       MYSQL_USER: appuser
       MYSQL_PASSWORD: apppass
     ports:
